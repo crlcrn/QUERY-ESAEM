@@ -1,0 +1,23 @@
+RICORSIONE GENERICA 
+
+def ricorsione(self, parziale): 
+
+    if self.puoEssereSol(parziale):  #ho raggiunto condizione terminale: non ho piu vicini validi da inserire 
+
+        if self.soluzioneMigliore(parziale):  #controllo se è la migliore 
+
+            self.bestPath = copy.deepcopy(parziale)  #copio 
+
+            self.bestScore = self.calcolaPeso(parziale)  #salvo il peso 
+
+        return  #vado alla pop per scrivere un'altra soluzione 
+
+    for n in self.grafo.neighbors(parziale[-1]):  #il prossimo deve essere collegato all'ultimo del parziale (è un cammimo) 
+
+        if self.nodoValido(parziale,n):  #controllo se il nodo rispetta i vincoli 
+
+            parziale.append(n)  #aggiunto 
+
+            self.ricorsione(parziale)  #richiamo 
+
+            parziale.pop()  #vado qui dopo le return 
